@@ -16,18 +16,22 @@ from PIL import Image,ImageTk
 
 
 
-def tch(wd):
-    wd.destroy()
-    exec(open("./teacher_login.py").read())
+class Screen:
+    def __init__(self,root,xy,title, master= None):
+        root.master = master
+        root.geometry(xy)
+       
+        root.title(title) 
+
+
+
 
 # bütün windowları aynı kodda birleştir diğer dosyalr sadece func için kullan
-
-
-
-
 root = tk.Tk()
-root.geometry('650x250')
-root.title('tkinter deneme')
+mainSc = Screen(root,'650x250','Main Screen')
+# root = tk.Tk()
+# root.geometry('650x250')
+# root.title('tkinter deneme')
 
 
 image =  Image.open("./teacher.png")
@@ -69,7 +73,7 @@ student_btn.grid(row=0, column=2)
 
 student_lbl.grid(row=1, column=2)
 
-teacher_btn = tk.Button(root,command = tch(root),image = teacher_pic)
+teacher_btn = tk.Button(root,image = teacher_pic)
 teacher_btn.grid(row=0,column=0)
 teacher_lbl.grid(row=1, column=0)
 
