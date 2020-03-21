@@ -13,20 +13,20 @@ import dataView as dv
 import screens.adminScreen as adm
 import screens.teacherScreen as ttc
 import screens.studentScreen as std
-
+import screens.teacherLogin as tlog
 
 class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
-        image =  Image.open("./teacher.png")
+        image =  Image.open("assets/teacher.png")
         image = image.resize((150, 150), Image.ANTIALIAS) ## The (250, 250) is (height, width)
         self.teacher_pic = ImageTk.PhotoImage(image)
         
-        image =  Image.open("./admin.png")
+        image =  Image.open("assets/admin.png")
         image = image.resize((150, 150), Image.ANTIALIAS) ## The (250, 250) is (height, width)
         self.admin_pic = ImageTk.PhotoImage(image)
         
-        image =  Image.open("./student.png")
+        image =  Image.open("assets/student.png")
         image = image.resize((150, 150), Image.ANTIALIAS) ## The (250, 250) is (height, width)
         self.student_pic = ImageTk.PhotoImage(image)
         
@@ -47,7 +47,7 @@ class StartPage(tk.Frame):
         
         student_lbl.grid(row=1, column=2)
         
-        teacher_btn = tk.Button(self,command = lambda: controller.show_frame(ttc.teacherPage), image = self.teacher_pic)
+        teacher_btn = tk.Button(self,command = lambda: controller.show_frame(tlog.teacherLogin), image = self.teacher_pic)
         teacher_btn.grid(row=0,column=0)
         teacher_lbl.grid(row=1, column=0)
         
