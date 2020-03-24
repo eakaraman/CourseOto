@@ -10,6 +10,7 @@ import databasefile as dbb
 import dataView as dv
 # from app import StartPage
 import screens.startScreen as stc
+import screens.teacherScreen as ttc
 
     
 class teacherLogin(tk.Frame):
@@ -48,7 +49,7 @@ class teacherLogin(tk.Frame):
     def log(self, username,password,controller):
         if dbb.trylog(username.get(),password.get()):
             # tk.messagebox.showinfo( "You are in")
-            controller.show_frame(dv.dataView)
+            controller.show_frame(ttc.teacherPage)
         else:
             messagebox.showinfo( "Wrong")
 

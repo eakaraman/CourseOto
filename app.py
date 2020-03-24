@@ -14,16 +14,17 @@ import screens.adminScreen as adm
 import screens.startScreen as stc
 import screens.studentScreen as std
 import screens.teacherLogin as tlog
+import screens.addStudent as addstd
 
 class app(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         container = tk.Frame(self)
-        self.geometry("1366x768")
+        self.geometry("500x500")
         container.pack(side = "top", fill = "both", expand= True)
         
         self.frames = {}
-        for F in (stc.StartPage, ttc.teacherPage, adm.adminPage, std.studentPage, dv.dataView, tlog.teacherLogin):
+        for F in (stc.StartPage, ttc.teacherPage, adm.adminPage, std.studentPage, dv.dataView, tlog.teacherLogin, addstd.addStudent):
             frame = F(container,self)
         
             self.frames[F] = frame
@@ -37,6 +38,7 @@ class app(tk.Tk):
         
     def show_frame(self,cont):
         frame = self.frames[cont]
+        self.geometry("1366x768")
         frame.tkraise()
         
         
