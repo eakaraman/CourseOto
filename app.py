@@ -8,7 +8,6 @@ import databasefile as dbb
 # import pandas as pd
 from PIL import Image,ImageTk
 import dataView as dv
-# from "./screens/teacherScreen" import teacherPage 
 import screens.teacherScreen as ttc
 import screens.adminScreen as adm
 import screens.startScreen as stc
