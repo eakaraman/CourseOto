@@ -1,52 +1,30 @@
-
-
 import sys
 if "Tkinter" not in sys.modules:
     import tkinter as tk
 # from tkinter.ttk import *
 import mysql.connector
-import databasefile as dbb
+from PIL import Image,ImageTk
 import dataView as dv
-# from app import StartPage
 import screens.startScreen as stc
-    
+import screens.addStudent as addstd
+
 class adminPage(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame.__init__(self,parent)
-        lbl1 = tk.Label(self,text="Name")
-        
-        lbl2 = tk.Label(self,text="Pass")
-        username = tk.StringVar()
-        password = tk.StringVar()
-        
-        ent1 = tk.Entry(self, textvariable=username)
-        ent2 = tk.Entry(self, textvariable = password)
-        
-        
-        
-        
-        btn1 = tk.Button(self,text="Login" ,command= lambda: self.log(username,password, controller))
-        
-        lbl1.grid(row=0, column=0)
-        lbl2.grid(row=1,column=0)
-        btn1.grid(row=2,column=1)
-        ent1.grid(row=0,column=1)
-        ent2.grid(row=1,column=1)
+        # lbl = tk.Label(self,text = "Teacher", font = ("Verdana",55))
+        # lbl.pack() 
+        image =  Image.open("assets/student.png")
+        image = image.resize((150, 150), Image.ANTIALIAS) ## The (250, 250) is (height, width)
+        self.student_pic = ImageTk.PhotoImage(image)
+
+         
+        image2 =  Image.open("assets/teacher.png")
+        image2 = image2.resize((150, 150), Image.ANTIALIAS) ## The (250, 250) is (height, width)
+        self.teacher_pic = ImageTk.PhotoImage(image2)
         
 
-        btn = tk.Button(self,text = "Back to home", command= lambda: controller.show_frame(stc.StartPage))
-        
-        btn.grid(row = 3,column=3)
-        
-    
-    def log(self, username,password,controller):
-        if dbb.trylog(username.get(),password.get()):
-            # tk.messagebox.showinfo( "You are in")
-            controller.show_frame(dv.dataView)
-        else:
-            tk.messagebox.showinfo( "Wrong")
+        student_btn = tk.Button(self, text = "Show Students",command = lambda: controller.show_frame(dv.dataView),image = self.student_pic, compound = "left")
+        student_btn.grid(row=0, column=0)
 
-  
-
-        
-        
+        addstudent = tk.Button(self, text = "Add Teacher",command = lambda: controller.show_frame(addstd.addStudent),image = self.teacher_pic, compound = "left")
+        addstudent.grid(row=0, column=1)

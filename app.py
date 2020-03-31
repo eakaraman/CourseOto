@@ -14,6 +14,8 @@ import screens.startScreen as stc
 import screens.studentScreen as std
 import screens.teacherLogin as tlog
 import screens.addStudent as addstd
+import screens.addTeacher as addtc
+import screens.adminLogin as admlog
 
 class app(tk.Tk):
     def __init__(self):
@@ -23,7 +25,7 @@ class app(tk.Tk):
         container.pack(side = "top", fill = "both", expand= True)
         
         self.frames = {}
-        for F in (stc.StartPage, ttc.teacherPage, adm.adminPage, std.studentPage, dv.dataView, tlog.teacherLogin, addstd.addStudent):
+        for F in (stc.StartPage, ttc.teacherPage, adm.adminPage, std.studentPage, dv.dataView, tlog.teacherLogin, addstd.addStudent, addtc.addTeacher,admlog.adminLogin):
             frame = F(container,self)
         
             self.frames[F] = frame

@@ -1,9 +1,7 @@
 
-#%%
+
 import mysql.connector
 import pandas as pd
-
-#%%
 
 def connecttodb():
     
@@ -24,9 +22,7 @@ def connecttodb():
     #    if mydb.is_connected():
     #        mydb.close()
     #        print("closed")
-    
 
-#%%
 
 def adduser(id,username,pwd):
 
@@ -44,8 +40,6 @@ def adduser(id,username,pwd):
 
 
 
-#%%
-
 df = pd.DataFrame()
 def selecttodf():
     try:
@@ -60,9 +54,7 @@ def selecttodf():
     except mysql.connector.Error as e:
         print("failed {}".format(e))
         
-        
-#%%
-        
+            
 
 def trylog(username,password):
     try:
@@ -83,22 +75,37 @@ def trylog(username,password):
 
 # df = selecttodf()
 # tttttt = trylog('qwe','qwe')
-
-
-
-#%%
-
-def addTeacher(id,name,surname, email,phone, login,password,working):
+def trylogadmin(username,password):
     try:
-        print(id.get())
+        que = "SELECT id,login,password FROM admin WHERE login = %s AND password = %s "
+        mydb = connecttodb()
+        mycursor = mydb.cursor()
+        tpl = (username,password)
+        mycursor.execute(que,tpl)
+        tt = mycursor.fetchall()
+        mycursor.close()
+        mydb.close()
+        if len(tt)>0:
+            return True
+        else:
+            return False
+    except mysql.connector.Error as e:
+        print("failed {}".format(e)) 
+
+
+
+def addTeacher(name,surname, email,phone, login,password,tc):
+    try:
         print(name.get())
-        que = "INSERT INTO teacher (id,name,surname,email,phone) VALUES (%s,%s,%s,%s,%s)"
-        que2 =  "INSERT INTO teacher_account (id,working,login,password) VALUES (%s,%s,%s,%s)"
+        que = "INSERT INTO teacher (name,surname,email,phone,tc) VALUES (%s,%s,%s,%s,%s)"
+        que2 =  "INSERT INTO teacher_account (login,password) VALUES (%s,%s)"
         mydb = connecttodb()
         curs= mydb.cursor()
-        tpl = (id.get(),name.get(),surname.get(),email.get(),phone.get())
-        tpl2 = (id.get(),working.get(),login.get(),password.get())
+        tpl = (name.get(),surname.get(),email.get(),phone.get(),tc.get())
         curs.execute(que,tpl)
+
+        tpl2 = (login.get(),password.get())
+
         curs.execute(que2,tpl2)
         mydb.commit()
         curs.close()
@@ -108,28 +115,27 @@ def addTeacher(id,name,surname, email,phone, login,password,working):
 
 
 
-# addTeacher(3, 'qwe', 'q', 'qwe', 'qwe','login','pwd')
-#%%
+
         
 
 
-def addTeacher(id,name,surname, email,phone):
-    try:
-        print(id.get())
-        print(name.get())
-        que = "INSERT INTO student (tc,name,surname,email,phone) VALUES (%s,%s,%s,%s,%s)"
-        # que2 =  "INSERT INTO teacher_account (id,working,login,password) VALUES (%s,%s,%s,%s)"
-        mydb = connecttodb()
-        curs= mydb.cursor()
-        tpl = (id.get(),name.get(),surname.get(),email.get(),phone.get())
-        # tpl2 = (id.get(),working.get(),login.get(),password.get())
-        curs.execute(que,tpl)
-        # curs.execute(que2,tpl2)
-        mydb.commit()
-        curs.close()
-        mydb.close()
-    except mysql.connector.Error as e:
-        print("failed |||| {}".format(e)) 
+# def addTeacher(id,name,surname, email,phone):
+#     try:
+#         print(id.get())
+#         print(name.get())
+#         que = "INSERT INTO student (tc,name,surname,email,phone) VALUES (%s,%s,%s,%s,%s)"
+#         # que2 =  "INSERT INTO teacher_account (id,working,login,password) VALUES (%s,%s,%s,%s)"
+#         mydb = connecttodb()
+#         curs= mydb.cursor()
+#         tpl = (id.get(),name.get(),surname.get(),email.get(),phone.get())
+#         # tpl2 = (id.get(),working.get(),login.get(),password.get())
+#         curs.execute(que,tpl)
+#         # curs.execute(que2,tpl2)
+#         mydb.commit()
+#         curs.close()
+#         mydb.close()
+#     except mysql.connector.Error as e:
+#         print("failed |||| {}".format(e)) 
 
 
 

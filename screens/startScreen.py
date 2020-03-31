@@ -10,7 +10,7 @@ import mysql.connector
 import databasefile as dbb
 import dataView as dv
 # from app import StartPage
-import screens.adminScreen as adm
+import screens.adminLogin as adm
 import screens.teacherScreen as ttc
 import screens.studentScreen as std
 import screens.teacherLogin as tlog
@@ -37,7 +37,7 @@ class StartPage(tk.Frame):
         student_lbl = tk.Label(self,text="Student")
         
         
-        admin_btn = tk.Button(self ,command = lambda: controller.show_frame(adm.adminPage), image = self.admin_pic)
+        admin_btn = tk.Button(self ,command = lambda: controller.show_frame(adm.adminLogin), image = self.admin_pic)
         admin_btn.grid(row=0, column=1)
         admin_lbl.grid(row=1,column=1)
         
