@@ -12,7 +12,8 @@ import dataView as dv
 # from app import StartPage
 import screens.adminLogin as adm
 import screens.teacherScreen as ttc
-import screens.studentScreen as std
+import screens.studentLogin as stdl
+import screens.studentScreen as stc
 import screens.teacherLogin as tlog
 
 class StartPage(tk.Frame):
@@ -42,7 +43,7 @@ class StartPage(tk.Frame):
         admin_lbl.grid(row=1,column=1)
         
         
-        student_btn = tk.Button(self, command = lambda: controller.show_frame(std.studentPage),image = self.student_pic)
+        student_btn = tk.Button(self, command = lambda: controller.show_frame(stdl.studentLogin),image = self.student_pic)
         student_btn.grid(row=0, column=2)
         
         student_lbl.grid(row=1, column=2)

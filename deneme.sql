@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2020 at 12:47 PM
+-- Generation Time: Apr 03, 2020 at 06:04 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -25,17 +25,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `class`
+-- Table structure for table `admin`
 --
 
-CREATE TABLE `class` (
+CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
-  `name` varchar(10) NOT NULL,
-  `start` date NOT NULL,
-  `end` date NOT NULL,
-  `teacher_id` bigint(11) NOT NULL,
-  `course_id` int(11) NOT NULL
+  `login` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `login`, `password`) VALUES
+(1, 'w', 'w');
 
 -- --------------------------------------------------------
 
@@ -45,15 +49,12 @@ CREATE TABLE `class` (
 
 CREATE TABLE `course` (
   `id` int(11) NOT NULL,
-  `level_id` int(11) NOT NULL
+  `name` varchar(10) NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL,
+  `teacher_id` bigint(11) NOT NULL,
+  `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `course`
---
-
-INSERT INTO `course` (`id`, `level_id`) VALUES
-(1, 1);
 
 -- --------------------------------------------------------
 
@@ -75,14 +76,10 @@ CREATE TABLE `exam` (
 INSERT INTO `exam` (`id`, `date`, `student_id`, `result`) VALUES
 (1, '2020-03-04', 12131, 50),
 (1, '2020-03-04', 12131, 50),
-(9898, '2020-03-11', 137, 44),
-(9898989, '2020-03-10', 111, 44),
 (1, '2020-03-10', 137, 75),
 (1, '2020-03-02', 111, 75),
 (1, '2020-03-03', 12131, 44),
-(9898989, '2020-03-04', 137, 75),
 (1, '2020-03-02', 111, 76),
-(9898989, '2020-03-03', 12131, 74),
 (1, '2020-03-04', 111, 99),
 (1, '2020-03-03', 111, 84);
 
@@ -135,21 +132,40 @@ INSERT INTO `level` (`id`, `grade`) VALUES
 --
 
 CREATE TABLE `student` (
-  `tc` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `surname` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `phone` bigint(11) NOT NULL
+  `phone` bigint(11) NOT NULL,
+  `tc` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`tc`, `name`, `surname`, `email`, `phone`) VALUES
-(111, 'alperen', 'karaman', 'eakaraman1@gmail.ocm', 5330901109),
-(137, 'alperen', 'karaman', 'eakaraman1@gmail.ocm', 5330901109),
-(12131, 'enes', 'karaman', 'eaka', 1234);
+INSERT INTO `student` (`id`, `name`, `surname`, `email`, `phone`, `tc`) VALUES
+(111, 'alperen', 'karaman', 'eakaraman1@gmail.ocm', 5330901109, 0),
+(112, 'sadasda', 'asd', 'sadsad', 5330901109, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_account`
+--
+
+CREATE TABLE `student_account` (
+  `id` int(11) NOT NULL,
+  `login` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_account`
+--
+
+INSERT INTO `student_account` (`id`, `login`, `password`) VALUES
+(111, 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -179,25 +195,20 @@ INSERT INTO `student_level` (`id`, `level`, `last_result`) VALUES
 --
 
 CREATE TABLE `teacher` (
-  `id` bigint(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `surname` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `phone` varchar(15) NOT NULL
+  `phone` varchar(15) NOT NULL,
+  `tc` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `teacher`
 --
 
-INSERT INTO `teacher` (`id`, `name`, `surname`, `email`, `phone`) VALUES
-(0, '', '', '', ''),
-(4, 'qwe', 'q', 'qwe', 'qwe'),
-(42635, 'enbes klaraman', 'sad', 'ead', '12321'),
-(134252523, 'sezgin', 'muslu', 'eaklar', '0533030'),
-(2147483647, 'enes', 'karaman', 'eakaraman', '05330901109'),
-(13725014610, 'nes', 'karaman', 'eakara', '05330901109'),
-(13725014611, 'nes', 'karaman', 'eakara', '05330901109');
+INSERT INTO `teacher` (`id`, `name`, `surname`, `email`, `phone`, `tc`) VALUES
+(1, 'Enes Alperen', 'Karaman', 'eakaraman1@gmail.com', '5330901109', 0);
 
 -- --------------------------------------------------------
 
@@ -206,8 +217,7 @@ INSERT INTO `teacher` (`id`, `name`, `surname`, `email`, `phone`) VALUES
 --
 
 CREATE TABLE `teacher_account` (
-  `id` bigint(11) NOT NULL,
-  `working` tinyint(1) NOT NULL,
+  `id` int(11) NOT NULL,
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -216,33 +226,26 @@ CREATE TABLE `teacher_account` (
 -- Dumping data for table `teacher_account`
 --
 
-INSERT INTO `teacher_account` (`id`, `working`, `login`, `password`) VALUES
-(4, 1, 'q', 'q'),
-(42635, 0, 'weqwe', 'qwe'),
-(134252523, 0, 'smuslu', 'sdsa'),
-(2147483647, 1, 'eakarman', 'logi'),
-(13725014610, 1, 'eakaraman', 'asdasd'),
-(13725014611, 0, 'eakaraman', 'asdasd');
+INSERT INTO `teacher_account` (`id`, `login`, `password`) VALUES
+(1, 'eakaraman', 'doc');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `class`
+-- Indexes for table `admin`
 --
-ALTER TABLE `class`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `teacher_id` (`teacher_id`),
-  ADD KEY `course_id` (`course_id`);
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `course`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `level_id` (`level_id`),
-  ADD KEY `level_id_2` (`level_id`);
+  ADD KEY `teacher_id` (`teacher_id`),
+  ADD KEY `course_id` (`course_id`);
 
 --
 -- Indexes for table `exam`
@@ -261,7 +264,7 @@ ALTER TABLE `level`
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
-  ADD PRIMARY KEY (`tc`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `student_level`
@@ -279,36 +282,33 @@ ALTER TABLE `teacher`
 -- Indexes for table `teacher_account`
 --
 ALTER TABLE `teacher_account`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `teacher_id` (`id`);
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+
+--
+-- AUTO_INCREMENT for table `teacher`
+--
+ALTER TABLE `teacher`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `teacher_account`
+--
+ALTER TABLE `teacher_account`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `class`
---
-ALTER TABLE `class`
-  ADD CONSTRAINT `class_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `course`
---
-ALTER TABLE `course`
-  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`level_id`) REFERENCES `level` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `exam`
---
-ALTER TABLE `exam`
-  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`tc`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `student_level`
---
-ALTER TABLE `student_level`
-  ADD CONSTRAINT `student_level_ibfk_1` FOREIGN KEY (`id`) REFERENCES `student` (`tc`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `teacher_account`

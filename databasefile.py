@@ -56,7 +56,7 @@ def selecttodf():
         
             
 
-def trylog(username,password):
+def trylogteacher(username,password):
     try:
         que = "SELECT id,login,password FROM teacher_account WHERE login = %s AND password = %s "
         mydb = connecttodb()
@@ -92,7 +92,22 @@ def trylogadmin(username,password):
     except mysql.connector.Error as e:
         print("failed {}".format(e)) 
 
-
+def trylogstudent(username,password):
+    try:
+        que = "SELECT id,login,password FROM student_account WHERE login = %s AND password = %s "
+        mydb = connecttodb()
+        mycursor = mydb.cursor()
+        tpl = (username,password)
+        mycursor.execute(que,tpl)
+        tt = mycursor.fetchall()
+        mycursor.close()
+        mydb.close()
+        if len(tt)>0:
+            return True
+        else:
+            return False
+    except mysql.connector.Error as e:
+        print("failed {}".format(e)) 
 
 def addTeacher(name,surname, email,phone, login,password,tc):
     try:
@@ -113,7 +128,24 @@ def addTeacher(name,surname, email,phone, login,password,tc):
     except mysql.connector.Error as e:
         print("failed |||| {}".format(e)) 
 
+def addStudent(name,surname, email,phone, login,password,tc):
+    try:
+        print(name.get())
+        que = "INSERT INTO student (name,surname,email,phone,tc) VALUES (%s,%s,%s,%s,%s)"
+        que2 =  "INSERT INTO student_account (login,password) VALUES (%s,%s)"
+        mydb = connecttodb()
+        curs= mydb.cursor()
+        tpl = (name.get(),surname.get(),email.get(),phone.get(),tc.get())
+        curs.execute(que,tpl)
 
+        tpl2 = (login.get(),password.get())
+
+        curs.execute(que2,tpl2)
+        mydb.commit()
+        curs.close()
+        mydb.close()
+    except mysql.connector.Error as e:
+        print("failed |||| {}".format(e)) 
 
 
         

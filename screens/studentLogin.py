@@ -10,10 +10,10 @@ import databasefile as dbb
 import dataView as dv
 # from app import StartPage
 import screens.startScreen as stc
-import screens.teacherScreen as ttc
+import screens.studentScreen as stsc
 
     
-class teacherLogin(tk.Frame):
+class studentLogin(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame.__init__(self,parent)
        
@@ -27,7 +27,7 @@ class teacherLogin(tk.Frame):
         ent1 = tk.Entry(self, textvariable=username)
         ent2 = tk.Entry(self, textvariable = password)
         
-        lbl3 = tk.Label(self,text = "Teacher Login Page")
+        lbl3 = tk.Label(self,text = "Student Login Page")
         
         
         btn1 = tk.Button(self,text="Login" ,command= lambda: self.log(username,password, controller))
@@ -47,9 +47,9 @@ class teacherLogin(tk.Frame):
         
     
     def log(self, username,password,controller):
-        if dbb.trylogteacher(username.get(),password.get()):
+        if dbb.trylogstudent(username.get(),password.get()):
             # tk.messagebox.showinfo( "You are in")
-            controller.show_frame(ttc.teacherPage)
+            controller.show_frame(stsc.studentPage)
         else:
             messagebox.showinfo( "Wrong")
 

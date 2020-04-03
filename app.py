@@ -3,7 +3,6 @@
 import sys
 if "Tkinter" not in sys.modules:
     import tkinter as tk
-from functools import partial
 import databasefile as dbb
 # import pandas as pd
 from PIL import Image,ImageTk
@@ -16,6 +15,7 @@ import screens.teacherLogin as tlog
 import screens.addStudent as addstd
 import screens.addTeacher as addtc
 import screens.adminLogin as admlog
+import screens.studentLogin as stdl
 
 class app(tk.Tk):
     def __init__(self):
@@ -25,7 +25,7 @@ class app(tk.Tk):
         container.pack(side = "top", fill = "both", expand= True)
         
         self.frames = {}
-        for F in (stc.StartPage, ttc.teacherPage, adm.adminPage, std.studentPage, dv.dataView, tlog.teacherLogin, addstd.addStudent, addtc.addTeacher,admlog.adminLogin):
+        for F in (stc.StartPage, ttc.teacherPage, adm.adminPage, std.studentPage, dv.dataView, tlog.teacherLogin, addstd.addStudent, addtc.addTeacher,admlog.adminLogin, stdl.studentLogin):
             frame = F(container,self)
         
             self.frames[F] = frame
