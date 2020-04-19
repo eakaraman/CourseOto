@@ -4,10 +4,13 @@ Created on Mon Mar 16 10:47:04 2020
 
 @author: sezginmuslu
 """
-import tkinter as tk
+import sys
+if "Tkinter" not in sys.modules:
+    import tkinter as tk
 from tkinter.ttk import *
 import mysql.connector
 import databasefile as dbb
+import screens.startScreen as stc
 
 class dataView(tk.Frame):
     def __init__(self,parent,controller):
@@ -17,7 +20,7 @@ class dataView(tk.Frame):
         que = "SELECT * FROM student"
         crs.execute(que)
         al = crs.fetchall()
-        
+        btn = tk.Button(self, text = "back", command= lambda: controller.show_frame(stc.StartPage))
         
         tv = Treeview(self)
         tv['columns'] = ('Name', 'Surname', 'email','phone')
@@ -35,6 +38,7 @@ class dataView(tk.Frame):
         self.treeview = tv
         self.grid_rowconfigure(0, weight = 1)
         self.grid_columnconfigure(0, weight = 1)
+        btn.grid(row = 1,column=1)
         cpt = 0 # Counter representing the ID of your code.
         for row in al:
            # I suppose the first column of your table is ID
