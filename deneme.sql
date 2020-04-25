@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 03, 2020 at 06:04 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Anamakine: 127.0.0.1
+-- Üretim Zamanı: 25 Nis 2020, 03:20:15
+-- Sunucu sürümü: 10.4.11-MariaDB
+-- PHP Sürümü: 7.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `deneme`
+-- Veritabanı: `deneme`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Tablo için tablo yapısı `admin`
 --
 
 CREATE TABLE `admin` (
@@ -35,7 +34,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `admin`
+-- Tablo döküm verisi `admin`
 --
 
 INSERT INTO `admin` (`id`, `login`, `password`) VALUES
@@ -44,7 +43,7 @@ INSERT INTO `admin` (`id`, `login`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `course`
+-- Tablo için tablo yapısı `course`
 --
 
 CREATE TABLE `course` (
@@ -52,39 +51,32 @@ CREATE TABLE `course` (
   `name` varchar(10) NOT NULL,
   `start` date NOT NULL,
   `end` date NOT NULL,
-  `teacher_id` bigint(11) NOT NULL,
-  `course_id` int(11) NOT NULL
+  `teacher_id` int(11) NOT NULL,
+  `course_level` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exam`
+-- Tablo için tablo yapısı `exam`
 --
 
 CREATE TABLE `exam` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `student_id` bigint(20) NOT NULL,
+  `student_id` int(11) NOT NULL,
   `result` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `exam`
+-- Tablo döküm verisi `exam`
 --
 
 INSERT INTO `exam` (`id`, `date`, `student_id`, `result`) VALUES
-(1, '2020-03-04', 12131, 50),
-(1, '2020-03-04', 12131, 50),
-(1, '2020-03-10', 137, 75),
-(1, '2020-03-02', 111, 75),
-(1, '2020-03-03', 12131, 44),
-(1, '2020-03-02', 111, 76),
-(1, '2020-03-04', 111, 99),
-(1, '2020-03-03', 111, 84);
+(1, '2020-04-02', 111, 60);
 
 --
--- Triggers `exam`
+-- Tetikleyiciler `exam`
 --
 DELIMITER $$
 CREATE TRIGGER `examtrigger` AFTER INSERT ON `exam` FOR EACH ROW BEGIN
@@ -105,30 +97,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `level`
---
-
-CREATE TABLE `level` (
-  `id` int(11) NOT NULL,
-  `grade` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `level`
---
-
-INSERT INTO `level` (`id`, `grade`) VALUES
-(1, 'A1'),
-(2, 'A2'),
-(3, 'B1'),
-(4, 'B2'),
-(5, 'C1'),
-(6, 'C2');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student`
+-- Tablo için tablo yapısı `student`
 --
 
 CREATE TABLE `student` (
@@ -141,17 +110,16 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `student`
+-- Tablo döküm verisi `student`
 --
 
 INSERT INTO `student` (`id`, `name`, `surname`, `email`, `phone`, `tc`) VALUES
-(111, 'alperen', 'karaman', 'eakaraman1@gmail.ocm', 5330901109, 0),
-(112, 'sadasda', 'asd', 'sadsad', 5330901109, 0);
+(111, 'alperen', 'karaman', 'eakaraman1@gmail.ocm', 5330901109, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_account`
+-- Tablo için tablo yapısı `student_account`
 --
 
 CREATE TABLE `student_account` (
@@ -161,7 +129,7 @@ CREATE TABLE `student_account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `student_account`
+-- Tablo döküm verisi `student_account`
 --
 
 INSERT INTO `student_account` (`id`, `login`, `password`) VALUES
@@ -170,28 +138,26 @@ INSERT INTO `student_account` (`id`, `login`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_level`
+-- Tablo için tablo yapısı `student_level`
 --
 
 CREATE TABLE `student_level` (
-  `id` bigint(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `level` varchar(2) NOT NULL,
   `last_result` int(11) NOT NULL DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `student_level`
+-- Tablo döküm verisi `student_level`
 --
 
 INSERT INTO `student_level` (`id`, `level`, `last_result`) VALUES
-(137, 'B2', 0),
-(12131, 'B2', 0),
-(111, 'C1', 84);
+(111, 'B1', 60);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teacher`
+-- Tablo için tablo yapısı `teacher`
 --
 
 CREATE TABLE `teacher` (
@@ -204,7 +170,7 @@ CREATE TABLE `teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `teacher`
+-- Tablo döküm verisi `teacher`
 --
 
 INSERT INTO `teacher` (`id`, `name`, `surname`, `email`, `phone`, `tc`) VALUES
@@ -213,7 +179,7 @@ INSERT INTO `teacher` (`id`, `name`, `surname`, `email`, `phone`, `tc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teacher_account`
+-- Tablo için tablo yapısı `teacher_account`
 --
 
 CREATE TABLE `teacher_account` (
@@ -223,95 +189,126 @@ CREATE TABLE `teacher_account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `teacher_account`
+-- Tablo döküm verisi `teacher_account`
 --
 
 INSERT INTO `teacher_account` (`id`, `login`, `password`) VALUES
 (1, 'eakaraman', 'doc');
 
 --
--- Indexes for dumped tables
+-- Dökümü yapılmış tablolar için indeksler
 --
 
 --
--- Indexes for table `admin`
+-- Tablo için indeksler `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `course`
+-- Tablo için indeksler `course`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`id`),
   ADD KEY `teacher_id` (`teacher_id`),
-  ADD KEY `course_id` (`course_id`);
+  ADD KEY `course_id` (`course_level`);
 
 --
--- Indexes for table `exam`
+-- Tablo için indeksler `exam`
 --
 ALTER TABLE `exam`
   ADD KEY `student_id` (`student_id`),
   ADD KEY `id` (`id`) USING BTREE;
 
 --
--- Indexes for table `level`
---
-ALTER TABLE `level`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `student`
+-- Tablo için indeksler `student`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `student_level`
+-- Tablo için indeksler `student_account`
+--
+ALTER TABLE `student_account`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Tablo için indeksler `student_level`
 --
 ALTER TABLE `student_level`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `teacher`
+-- Tablo için indeksler `teacher`
 --
 ALTER TABLE `teacher`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `teacher_account`
+-- Tablo için indeksler `teacher_account`
 --
 ALTER TABLE `teacher_account`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
 --
 
 --
--- AUTO_INCREMENT for table `student`
+-- Tablo için AUTO_INCREMENT değeri `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
--- AUTO_INCREMENT for table `teacher`
+-- Tablo için AUTO_INCREMENT değeri `student_account`
+--
+ALTER TABLE `student_account`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `student_level`
+--
+ALTER TABLE `student_level`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `teacher`
 --
 ALTER TABLE `teacher`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `teacher_account`
+-- Tablo için AUTO_INCREMENT değeri `teacher_account`
 --
 ALTER TABLE `teacher_account`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Constraints for dumped tables
+-- Dökümü yapılmış tablolar için kısıtlamalar
 --
 
 --
--- Constraints for table `teacher_account`
+-- Tablo kısıtlamaları `exam`
+--
+ALTER TABLE `exam`
+  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Tablo kısıtlamaları `student_account`
+--
+ALTER TABLE `student_account`
+  ADD CONSTRAINT `student_account_ibfk_1` FOREIGN KEY (`id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Tablo kısıtlamaları `student_level`
+--
+ALTER TABLE `student_level`
+  ADD CONSTRAINT `student_level_ibfk_1` FOREIGN KEY (`id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Tablo kısıtlamaları `teacher_account`
 --
 ALTER TABLE `teacher_account`
   ADD CONSTRAINT `teacher_account_ibfk_1` FOREIGN KEY (`id`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
