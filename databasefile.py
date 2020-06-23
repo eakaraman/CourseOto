@@ -16,7 +16,7 @@ def connecttodb():
         
     
     except mysql.connector.Error as e:
-        print("failed {}".format(e))
+        print("*****************failed {}".format(e))
         
     #finally:
     #    if mydb.is_connected():

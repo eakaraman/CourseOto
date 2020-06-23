@@ -12,13 +12,13 @@ import dataView as dv
 import screens.startScreen as stc
 import screens.teacherScreen as ttc
 
-    
+teacherID = 1
 class teacherLogin(tk.Frame):
+    
     def __init__(self,parent,controller):
         tk.Frame.__init__(self,parent)
        
         lbl1 = tk.Label(self,text="Name")
-       
         
         lbl2 = tk.Label(self,text="Pass")
         username = tk.StringVar()
@@ -49,11 +49,11 @@ class teacherLogin(tk.Frame):
     def log(self, username,password,controller):
         if dbb.trylogteacher(username.get(),password.get()):
             # tk.messagebox.showinfo( "You are in")
+            
             controller.show_frame(ttc.teacherPage)
         else:
             messagebox.showinfo( "Wrong")
 
-  
+    
 
-        
-        
+    

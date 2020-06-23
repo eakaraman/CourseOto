@@ -51,7 +51,7 @@ class addStudent(tk.Frame):
 
 
 
-        btn = tk.Button(self,text="Login",command= lambda : dbb.addStudent(name, surname, email, phone, username, password,tc))
+        btn = tk.Button(self,text="Login",command= lambda : dbb.addTeacher(name, surname, email, phone, username, password,tc))
         lbl1.grid(row=0, sticky = tk.E)
         lbl2.grid(row=1,sticky=tk.E)
         lbl3.grid(row=2, sticky = tk.E)

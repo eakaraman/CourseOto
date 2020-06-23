@@ -26,6 +26,7 @@ class app(tk.Tk):
         
         self.frames = {}
         for F in (stc.StartPage, ttc.teacherPage, adm.adminPage, std.studentPage, dv.dataView, tlog.teacherLogin, addstd.addStudent, addtc.addTeacher,admlog.adminLogin, stdl.studentLogin):
+            
             frame = F(container,self)
         
             self.frames[F] = frame
